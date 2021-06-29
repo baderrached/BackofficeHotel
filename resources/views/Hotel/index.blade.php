@@ -49,7 +49,7 @@
                     </td>
 
                     <td>
-                     <img  src="{{$hotels->image}}" />
+                     <img  src="/images/{{$hotels->image}}" />
                     </td>
                     <td>
                       <td>
@@ -62,7 +62,7 @@
                       </form>
   
   
-                      @if($hotels->activated == 'active')
+                      @if($hotels->status == 'active')
                       <form method="get" action="{{ route('hotel.delete' , $hotels->id) }}" >
                         @csrf
                         <input hidden value={{$hotels->id}} name="id"/>
@@ -72,7 +72,7 @@
                         @endif
   
   
-                        @if($hotels->activated == 'inactive')
+                        @if($hotels->status == 'inactive')
                         <form method="get" action="{{ route('hotel.restore' , $hotels->id) }}" >
                           @csrf
                           <input hidden value={{$hotels->id}} name="id"/>

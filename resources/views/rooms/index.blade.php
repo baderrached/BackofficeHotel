@@ -78,19 +78,17 @@
                     </td>
 
                     <td>
-                     <img src="{{$rooms->image}}" height="25" width="25"  />
+                     <img src="/images/{{$rooms->image}}" height="45" width="45"  />
                     </td>
 
 
 
                     <td>
-                      <form method="POST" action="{{ route('room.edit' , $rooms->id) }}" >
-                        @csrf
-                        <input hidden value={{$rooms->id}} name="id"/>
-                      <button type="button" rel="tooltip" class="btn btn-success btn-round">
+                      <a class="" href="Update/room/{{$rooms->id}}">
+                      <button type="submit" rel="tooltip" class="btn btn-success btn-round">
                         <i class="material-icons">edit</i>
                       </button>
-                    </form>
+                      </a>
 
 
                     @if($rooms->activated == 'active')

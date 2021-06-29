@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use Image;
+
 
 use Illuminate\Support\Facades\DB;
 class RoomsController extends Controller
@@ -22,7 +24,11 @@ class RoomsController extends Controller
 
     public function insert(Request $req)
     {
+        $RoomImg =  $req->file('image');
+        // fonction parameter
        
+       $input['image'] = $req->input('image').'.'.time().'.'.$RoomImg->extension();
+       $destinationPath = 'images';
 
         $Room = new Room;
         $Room->room_name = $req->name;
@@ -33,7 +39,16 @@ class RoomsController extends Controller
         $Room->descreption = $req->desc;
         $Room->price = $req->price;
         $Room->nb_disponible = $req->price;
-        $Room->image = $req->image;
+
+
+        $img = Image::make($RoomImg->path());
+        $img->resize(100, 100, function ($constraint) {
+             $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$input['image']);
+
+
+       
+        $Room->image = $img->basename ; 
 
 
         $Room->save();
@@ -62,7 +77,24 @@ class RoomsController extends Controller
        
     }
 
+    public function getedit(string $id)
+    {
+        $room = DB::table('rooms')->where('id',$id)->get();
+       
+        return view('rooms.edit', ['room' => $room]);
+    }
 
+
+    public function update(Request  $request )
+    {
+        dd($request->all());
+        Room::where('id',$request->id)->update($request->all());
+     
+            return back()->withStatus(__('Updated  !'));;
+
+
+   
+    }
 
 
 

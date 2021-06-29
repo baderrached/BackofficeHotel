@@ -26,7 +26,7 @@
                     </div>
                   </div>
                 @endif
-                <form method="POST" action="{{ route('hotel.insert') }}" autocomplete="off" class="form-horizontal">
+                <form method="POST" action="{{ route('hotel.insert') }}" autocomplete="off" class="form-horizontal" enctype="multipart/form-data">
                   @csrf
                 <div class="row">
                   <label class="col-sm-2 col-form-label">{{ __('Name') }}</label>

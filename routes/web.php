@@ -44,14 +44,22 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('room_insert', 'App\Http\Controllers\RoomsController@insert')->name('rooms.insert');
 	Route::get('Restore/Room/{id}', ['as' => 'room.restore', 'uses' => 'App\Http\Controllers\RoomsController@restoreRoom']);
 	Route::get('Delete/Room/{id}', ['as' => 'room.delete', 'uses' => 'App\Http\Controllers\RoomsController@deleteRoom']);
-	Route::put('room/{id}', ['as' => 'room.edit', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+	Route::get('Update/room/{id}', ['as' => 'room.update', 'uses' => 'App\Http\Controllers\RoomsController@getedit']);
+	Route::put('roomedit', ['as' => 'room.edit', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 
 
 
 	Route::get('hotel', ['as' => 'hotel.index', 'uses' => 'App\Http\Controllers\HotelController@index']);
 	Route::get('hoteladd', ['as' => 'hotel.add', 'uses' => 'App\Http\Controllers\HotelController@add']);
-	// Route::post('hotel_insert', ['as' => 'hotel.insert', 'uses' => 'App\Http\Controllers\HotelController@insert']);
 	Route::post('hotel_insert', 'App\Http\Controllers\HotelController@insert')->name('hotel.insert');
+	Route::get('Restore/hotel/{id}', ['as' => 'hotel.restore', 'uses' => 'App\Http\Controllers\HotelController@restoreHotel']);
+	Route::get('Delete/hotel/{id}', ['as' => 'hotel.delete', 'uses' => 'App\Http\Controllers\HotelController@deleteHotel']);
+	Route::put('hoteledit', ['as' => 'hotel.edit', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+
+
+
+
+
 
 });
 
