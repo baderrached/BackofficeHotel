@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB ;
 use App\Models\Hotel;
-use Image ;
+use Image;
 class HotelController extends Controller
 {
     public function index()
@@ -24,21 +24,23 @@ class HotelController extends Controller
         $HotelImg =  $req->file('image');
         // fonction parameter
        
-       $input['image'] = $req->input('image').'.'.time().'.'.$HotelImg->extension();
-       $destinationPath = 'images';
+      
 
         $Hotel = new Hotel;
         $Hotel->name = $req->name;
         $Hotel->room = "";
         $Hotel->location = $req->location ;
 
-
-        $img = Image::make($HotelImg->path());
-        $img->resize(100, 100, function ($constraint) {
-             $constraint->aspectRatio();
-        })->save($destinationPath.'/'.$input['image']);
-
-
+        $input['image'] = $req->input('image').'.'.time().'.'.$HotelImg->extension();
+        $destinationPath = 'images';
+ 
+ 
+         $img = Image::make($HotelImg->path());
+         $img->resize(100, 100, function ($constraint) {
+              $constraint->aspectRatio();
+         })->save($destinationPath.'/'.$input['image']);
+ 
+ 
         $Hotel->image = $img->basename;
         $Hotel->status = "active";
         $Hotel->save();
@@ -66,6 +68,47 @@ class HotelController extends Controller
         return back();
        
     }
+
+    public function getedit(string $id)
+    {
+        $hotel = DB::table('hotels')->where('id',$id)->get();
+       
+        return view('Hotel.edit', ['hotel' => $hotel]);
+    }
+
+    public function edit(Request $req , $id)
+    {
+
+        
+        $HotelImg =  $req->file('image');
+        // fonction parameter
+       
+      
+
+        $Hotel = DB::table('hotels')->where('id',$id)->get(); ;
+        $Hotel->name = $req->name;
+        $Hotel->room = "";
+        $Hotel->location = $req->location ;
+
+        $input['image'] = $req->input('image').'.'.time().'.'.$HotelImg->extension();
+        $destinationPath = 'images';
+ 
+ 
+         $img = Image::make($HotelImg->path());
+         $img->resize(100, 100, function ($constraint) {
+              $constraint->aspectRatio();
+         })->save($destinationPath.'/'.$input['image']);
+ 
+ 
+        $Hotel->image = $img->basename;
+        $Hotel->status = "active";
+        $Hotel->save();
+       
+         return back()->withStatus(__('Hoted updated successfully.'));
+    }
+
+  
+
 
 
 

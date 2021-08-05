@@ -32,6 +32,9 @@
                   <th>
                     Amount
                   </th>
+                  <th>
+                    Status
+                  </th>
                 </thead>
                 <tbody>
                   @foreach ($res as $ress)

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => '', 'titlePage' => __('Room Add')])
+@extends('layouts.app', ['activePage' => '', 'titlePage' => __('Room Edit')])
 
 @section('content')
   <div class="content">
@@ -10,7 +10,7 @@
 
             <div class="card ">
               <div class="card-header card-header-primary">
-                <h4 class="card-title">{{ __('Room add') }}</h4>
+                <h4 class="card-title">{{ __('Room edit') }}</h4>
               </div>
               <div class="card-body ">
                 @if (session('status'))

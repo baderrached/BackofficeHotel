@@ -21,11 +21,9 @@
                     Name
                   </th>
                   <th>
-                    Passeport
+                    Passeport / Cin
                   </th>
-                  <th>
-                    CIN
-                  </th>
+                  
                   <th>
                     gender
                   </th>
@@ -48,12 +46,9 @@
                       {{$clients->first_name}} 
                     </td>
                    <td>
-                      {{$clients->passeport}} 
-                    </td>
-                    <td>
-                      {{$clients->cin}} 
-                    </td>
-                    <td>
+                      {{$clients->passeport_cin}} 
+                   </td>
+                   <td>
                       {{$clients->gender}} 
                     </td>
                     <td>

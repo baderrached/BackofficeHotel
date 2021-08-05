@@ -56,29 +56,33 @@
                       {{$rooms->room_name}}
                     </td>
                     <td>
+                      {{$rooms->hotel_name}}
+                    </td>
+                    <td>
+                      {{$rooms->type}}
+                    </td>
+                    <td>
                       {{$rooms->nb_adulte}}
                     </td>
                     <td>
                       {{$rooms->nb_children}}
                     </td>
-                    <td class="text-primary">
-                      {{$rooms->type}}
+                 
+                    <td>
+                      {{$rooms->price}}
                     </td>
 
                     <td>
                       {{$rooms->descreption}}
                     </td>
 
-                    <td>
-                      {{$rooms->price}}
-                    </td>
+                  
+
+              
+                 
 
                     <td>
-                      {{$rooms->nb_disponible}}
-                    </td>
-
-                    <td>
-                     <img src="/images/{{$rooms->image}}" height="45" width="45"  />
+                     <img src="{{$rooms->image}}" height="45" width="45"  />
                     </td>
 
 

@@ -35,15 +35,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <label class="col-sm-2 col-form-label">{{ __('Hotel') }}</label>
-                  <div class="col-sm-7">
-                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="hotel" id="input-email" type="name" placeholder="{{ __('Hotel') }}" value="" required />
-                   
-                    </div>
-                  </div>
-                </div>
+               
                 <div class="row">
                   <label class="col-sm-2 col-form-label">{{ __('Type') }}</label>
                   <div class="col-sm-7">

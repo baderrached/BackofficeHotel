@@ -30,6 +30,7 @@
                     Image
                   </th>
                   <th>
+                    Actions
                   </th>
                 </thead>
                 <tbody>
@@ -42,7 +43,7 @@
                       {{$hotels->name}}
                     </td>
                     <td class="text-primary">
-                    
+                      {{$hotels->room}}
                     </td>
                     <td>
                       {{$hotels->location}}
@@ -51,15 +52,15 @@
                     <td>
                      <img  src="/images/{{$hotels->image}}" />
                     </td>
-                    <td>
+                   
                       <td>
-                        <form method="POST" action="{{ route('hotel.edit' , $hotels->id) }}" >
-                          @csrf
+                        <a href="Update/Hotel/{{$hotels->id}}" >
+                        
                           <input hidden value={{$hotels->id}} name="id"/>
                         <button type="button" rel="tooltip" class="btn btn-success btn-round">
                           <i class="material-icons">edit</i>
                         </button>
-                      </form>
+                        </a>
   
   
                       @if($hotels->status == 'active')
@@ -87,7 +88,7 @@
   
   
                       </td>
-                    </td>
+                    
                     
                   </tr>
                @endforeach

@@ -8,7 +8,10 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $res = DB::table('reservations')->get();
+        $hotel = DB::table('hotels')->where('admin_id',auth()->user()->id)->value('id');
+        $room =  DB::table('rooms')->where('id',$hotel)->value('id');
+        $res = DB::table('reservations')->where('room_id',$room)->get();
+
         return view('reservation.index', ['res' => $res]);
         
     }

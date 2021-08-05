@@ -32,6 +32,12 @@
         </a>
       </li>
 
+   
+
+      
+
+
+      @if (auth()->user()->role == 2)
       <li class="nav-item{{ $activePage == 'Reservation' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('Reservation.index') }}">
           <i class="material-icons">content_paste</i>
@@ -39,9 +45,12 @@
         </a>
       </li>
 
-      
-
-
+      <li class="nav-item{{ $activePage == 'Intervention' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('Intervention.index') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Intervention Demande ') }}</p>
+        </a>
+      </li>
 
       <li class="nav-item {{ ($activePage == 'roomindex' || $activePage == 'roomadd') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#rooms" aria-expanded="true">
@@ -67,6 +76,72 @@
           </ul>
         </div>
       </li>
+
+      <li class="nav-item {{ ($activePage == 'roomindex' || $activePage == 'roomadd') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#extra" aria-expanded="true">
+          <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
+          <p>{{ __('Extra') }}
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse show" id="extra">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'extra' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('Extra.index') }}">
+                <i class="material-icons">content_paste</i>
+                  <p>{{ __('Extra Menu') }}</p>
+              </a>
+            </li>
+
+
+            <li class="nav-item{{ $activePage == 'extralist' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('extra.list') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('Extra Demande') }} </span>
+              </a>
+            </li>
+
+            <li class="nav-item{{ $activePage == 'extraaad' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('extra.add') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('Extra add') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+
+      <li class="nav-item {{ ($activePage == '' || $activePage == '') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#SpaResto" aria-expanded="true">
+          <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
+          <p>{{ __('SpaResto') }}
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse show" id="SpaResto">
+          <ul class="nav">
+            <li class="nav-item{{ $activePage == 'SpaResto' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('SpaResto.index') }}">
+                <i class="material-icons">content_paste</i>
+                  <p>{{ __('SpaResto Menu') }}</p>
+              </a>
+            </li>
+
+
+            <li class="nav-item{{ $activePage == 'SpaRestoaad' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('SpaResto.add') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('SpaResto add') }} </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      @endif
+
+
+      @if(auth()->user()->role == 1)
       <li class="nav-item {{ ($activePage == 'hotelindex' || $activePage == 'hoteladd') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#hotel" aria-expanded="true">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
@@ -90,100 +165,38 @@
             </li>
           </ul>
         </div>
-
-
-
-
-
-
       </li>
 
-      <li class="nav-item {{ ($activePage == 'roomindex' || $activePage == 'roomadd') ? ' active' : '' }}">
-        <a class="nav-link" data-toggle="collapse" href="#extra" aria-expanded="true">
+      <li class="nav-item {{ ($activePage == 'adminindex' || $activePage == 'adminadd') ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="true">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
-          <p>{{ __('Extra') }}
+          <p>{{ __('admins') }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse show" id="extra">
+        <div class="collapse show" id="admin">
           <ul class="nav">
-            <li class="nav-item{{ $activePage == 'extra' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('Extra.index') }}">
-                <i class="material-icons">content_paste</i>
-                  <p>{{ __('Extra List') }}</p>
+            <li class="nav-item{{ $activePage == 'adminindex' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.index') }}">
+                <span class="sidebar-mini"> UP </span>
+                <span class="sidebar-normal">{{ __('admin list') }} </span>
               </a>
             </li>
-
-
-            <li class="nav-item{{ $activePage == 'extralist' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('extra.list') }}">
+            <li class="nav-item{{ $activePage == 'adminadd' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('admin.add') }}">
                 <span class="sidebar-mini"> UM </span>
-                <span class="sidebar-normal"> {{ __('Extra Menu') }} </span>
-              </a>
-            </li>
-
-
-
-
-
-            <li class="nav-item{{ $activePage == 'extraaad' ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('extra.add') }}">
-                <span class="sidebar-mini"> UM </span>
-                <span class="sidebar-normal"> {{ __('Extra add') }} </span>
+                <span class="sidebar-normal"> {{ __('admin add') }} </span>
               </a>
             </li>
           </ul>
         </div>
+
       </li>
 
+@endif
 
 
 
-
-
-
-
-
-
-
-
-
-      {{-- <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('typography') }}">
-          <i class="material-icons">library_books</i>
-            <p>{{ __('Typography') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('icons') }}">
-          <i class="material-icons">bubble_chart</i>
-          <p>{{ __('Icons') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('map') }}">
-          <i class="material-icons">location_ons</i>
-            <p>{{ __('Maps') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('notifications') }}">
-          <i class="material-icons">notifications</i>
-          <p>{{ __('Notifications') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('language') }}">
-          <i class="material-icons">language</i>
-          <p>{{ __('RTL Support') }}</p>
-        </a>
-      </li>
-      <li class="nav-item active-pro{{ $activePage == 'upgrade' ? ' active' : '' }}">
-        <a class="nav-link text-white bg-danger" href="{{ route('upgrade') }}">
-          <i class="material-icons text-white">unarchive</i>
-          <p>{{ __('Upgrade to PRO') }}</p>
-        </a>
-      </li> --}}
     </ul>
   </div>
 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'extralist', 'titlePage' => __('extralist')])
+@extends('layouts.app', ['activePage' => 'extralist', 'titlePage' => __('Extra Demande')])
 
 @section('content')
 <div class="content">
@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Extra list</h4>
+            <h4 class="card-title ">Extra Demande</h4>
         
           </div>
           <div class="card-body">
@@ -23,40 +23,47 @@
                   <th>
                    Category
                   </th>
-                  <th>
-                    Description
-                  </th>
-                  <th>
-                    Price
-                  </th>
+                <th>
+                  Action
+              </th>
                 
                 </thead>
                 <tbody>
-                  {{-- @foreach ($res as $ress)
+                  @foreach($extra as $extras)
                   <tr>
                     <td>
-                      {{$ress->id}}
+                      {{$extras->id}}
                     </td>
                     <td>
-                      {{$ress->user_id}}
+                      {{$extras->user_name}}
                     </td>
                     <td>
-                      {{$ress->room_id}}
+                      {{$extras->orders}}     
                     </td>
+                    
                     <td>
-                      {{$ress->from}}
-                    </td>
-                    <td>
-                      {{$ress->to}}
-                    </td>
-                    <td class="text-primary">
-                      {{$ress->amount}}
-                    </td>
-                    <td>
+                      @if ($extras->status == "pending")
+                      <form method="get"
+                          action="{{ route('extra.done', $extras->id) }}">
+                          @csrf
+                          <input hidden value={{ $extras->id }} name="id" />
+                          <button type="submit" rel="tooltip"
+                              class="btn btn-success btn-round">
+                              Done
+                              <i class="material-icons"></i>
+                          </button>
+                      </form>
+                  @endif
+
+                  @if($extras->status == "Done")
+                     <span> Done </span>
+                    @endif
+                  </td>
+
                    
-                    </td>
+               
                   </tr>
-                 @endforeach --}}
+                @endforeach
                 </tbody>
               </table>
             </div>

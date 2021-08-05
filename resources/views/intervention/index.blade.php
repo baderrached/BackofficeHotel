@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Extra Menu</h4>
+            <h4 class="card-title ">Intervention Demande</h4>
         
           </div>
           <div class="card-body">
@@ -24,35 +24,45 @@
                     Room ID
                   </th>
                   <th>
-                    Descreption
-                  </th>
-                  <th>
-                    Price
-                  </th>
-                  <th>
                     Status
                   </th>
+              
                 </thead>
                 <tbody>
-                  @foreach($extra as $extras)
+                  @foreach($inter as $inters)
                   <tr>
                     <td>
-                      {{$extras->id}}
+                      {{$inters->id}}
                     </td>
                     <td>
-                      {{$extras->name}}
+                      {{$inters->user_name}}
                     </td>
                     <td>
-                      {{$extras->category}}     
+                      {{$inters->room_id}}     
                     </td>
-                    
-                    <td>
-                      {{$extras->descreption}}     
-                    </td>
-                    <td class="text-primary">
-                      {{$extras->price}}
-                    </td>
-                  
+
+                  @if($inters->status == 0)
+                 <td>
+                  <form method="get"
+                  action="{{ route('interv.done', $inters->id) }}">
+                  @csrf
+                  <input hidden value={{ $inters->id }} name="id" />
+                  <button type="submit" rel="tooltip"
+                      class="btn btn-success btn-round">
+                      Done
+                      <i class="material-icons"></i>
+                  </button>
+              </form>
+            </td>
+
+                  @endif
+
+
+
+                  @if($inters->status == 1)
+                    <td> Done </td>
+
+                  @endif
                    
                
                   </tr>

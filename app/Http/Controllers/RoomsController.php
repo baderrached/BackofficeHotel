@@ -12,8 +12,27 @@ class RoomsController extends Controller
 {
     public function index()
     {
-        $room = DB::table('rooms')->get();
-        return view('rooms.index', ['room' => $room]);
+        if(auth()->user()->role == 1){
+            $room = DB::table('rooms')->get();
+            foreach ($room as $rooms){
+                $hotel = DB::table('hotels')->where('id',$rooms->hotel_id)->value('name');
+                $rooms->hotel_name = $hotel;
+                }
+            return view('rooms.index', ['room' => $room]);
+        }
+        else if (auth()->user()->role == 2){
+
+            $hotel = DB::table('hotels')->where('admin_id',auth()->user()->id)->value('id');
+            $room = DB::table('rooms')->where('hotel_id',$hotel)->get();
+
+
+            foreach ($room as $rooms){
+                $hotel = DB::table('hotels')->where('id',$rooms->hotel_id)->value('name');
+                $rooms->hotel_name = $hotel;
+                }
+            return view('rooms.index', ['room' => $room]);
+        }
+       
     }
 
 
@@ -25,14 +44,14 @@ class RoomsController extends Controller
     public function insert(Request $req)
     {
         $RoomImg =  $req->file('image');
-        // fonction parameter
-       
-       $input['image'] = $req->input('image').'.'.time().'.'.$RoomImg->extension();
-       $destinationPath = 'images';
+   
+   
+
+    if(auth()->user()->role == 2){
 
         $Room = new Room;
         $Room->room_name = $req->name;
-        $Room->hotel_id = $req->hotel;
+        $Room->hotel_id = auth()->user()->hotel_id;
         $Room->nb_adulte = $req->adulte;
         $Room->nb_children = $req->children ;
         $Room->type = $req->type;
@@ -40,20 +59,35 @@ class RoomsController extends Controller
         $Room->price = $req->price;
         $Room->nb_disponible = $req->price;
 
+             // fonction parameter
+       
+       $input['image'] = $req->input('image').'.'.time().'.'.$RoomImg->extension();
+       $destinationPath = 'images';
+
 
         $img = Image::make($RoomImg->path());
         $img->resize(100, 100, function ($constraint) {
              $constraint->aspectRatio();
         })->save($destinationPath.'/'.$input['image']);
 
-
        
         $Room->image = $img->basename ; 
 
 
         $Room->save();
+
+
+        
+        return back()->withStatus(__('Room added successfully.'));
+    }else{
+        abort(403);
+    }
+
+
+
+
        
-         return back()->withStatus(__('Room added successfully.'));
+     
     }
 
     public function deleteRoom(string $id)
@@ -85,10 +119,14 @@ class RoomsController extends Controller
     }
 
 
-    public function update(Request  $request )
+    public function update(Request  $req )
     {
-        dd($request->all());
-        Room::where('id',$request->id)->update($request->all());
+        if($req->image){
+            $room = DB::table('rooms')->where('id',$req->id)->update(['room_name' => $req->name , 'nb_adulte'=> $req->adulte , 'nb_children'=> $req->children  , 'type' => $req->type,  'descreption'=> $req->desc, 'price' => $req->price, 'image'=> $req->image ]);
+        }else{
+            $room = DB::table('rooms')->where('id',$req->id)->update(['room_name' => $req->name , 'nb_adulte'=> $req->adulte , 'nb_children'=> $req->children  , 'type' => $req->type,  'descreption'=> $req->desc, 'price' => $req->price ]);
+
+        }
      
             return back()->withStatus(__('Updated  !'));;
 
