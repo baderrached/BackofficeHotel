@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB ;
+use Illuminate\Support\Facades\DB;
 use App\Models\Hotel;
-use Image;
+use Intervention\Image\Facades\Image;
 class HotelController extends Controller
 {
     public function index()
@@ -82,13 +82,14 @@ class HotelController extends Controller
         
         $HotelImg =  $req->file('image');
         // fonction parameter
-       
-      
 
-        $Hotel = DB::table('hotels')->where('id',$id)->get(); ;
-        $Hotel->name = $req->name;
-        $Hotel->room = "";
-        $Hotel->location = $req->location ;
+       if($HotelImg  == null){
+        $Hotel = DB::table('hotels')->where('id',$id)->update(['name' => $req->name , "location" => $req->location]);
+        return back()->withStatus(__('Hoted updated successfully.'));
+     
+       }
+
+       if( $HotelImg  != null){
 
         $input['image'] = $req->input('image').'.'.time().'.'.$HotelImg->extension();
         $destinationPath = 'images';
@@ -99,11 +100,16 @@ class HotelController extends Controller
               $constraint->aspectRatio();
          })->save($destinationPath.'/'.$input['image']);
  
- 
-        $Hotel->image = $img->basename;
-        $Hotel->status = "active";
-        $Hotel->save();
-       
+
+        $Hotel = DB::table('hotels')->where('id',$id)->update(['name' => $req->name , "location" => $req->location , "image" =>  $img->basename]);
+        
+        return back()->withStatus(__('Hoted updated successfully.'));
+     
+       }
+      
+
+
+      
          return back()->withStatus(__('Hoted updated successfully.'));
     }
 

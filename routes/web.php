@@ -81,7 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/sparesto/add', ['as' => 'SpaResto.insert', 'uses' => 'App\Http\Controllers\SparestoController@insert']);
 	Route::get('/Restore/Spa/{id}', ['as' => 'spa.restore', 'uses' => 'App\Http\Controllers\SparestoController@restoreSpa']);
 	Route::get('/Delete/Spa/{id}', ['as' => 'spa.delete', 'uses' => 'App\Http\Controllers\SparestoController@deleteSpa']);
-
+	Route::get('/resSpa', ['as' => 'spa.res', 'uses' => 'App\Http\Controllers\SparestoController@reservation']);
 
 
 

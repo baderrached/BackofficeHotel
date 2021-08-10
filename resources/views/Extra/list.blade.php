@@ -21,7 +21,7 @@
                     Name
                   </th>
                   <th>
-                   Category
+                   Orders
                   </th>
                 <th>
                   Action
@@ -38,9 +38,15 @@
                       {{$extras->user_name}}
                     </td>
                     <td>
-                      {{$extras->orders}}     
+                      {{$extras->orders}}
                     </td>
-                    
+                    {{-- @foreach ($$extras->orders as $orders)
+                        
+                   
+                    <td>
+                      {{$orders->name}}     
+                    </td>
+                    @endforeach --}}
                     <td>
                       @if ($extras->status == "pending")
                       <form method="get"

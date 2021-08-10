@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
-use Image;
+use Intervention\Image\Facades\Image;
 
 
 use Illuminate\Support\Facades\DB;
@@ -122,7 +122,16 @@ class RoomsController extends Controller
     public function update(Request  $req )
     {
         if($req->image){
-            $room = DB::table('rooms')->where('id',$req->id)->update(['room_name' => $req->name , 'nb_adulte'=> $req->adulte , 'nb_children'=> $req->children  , 'type' => $req->type,  'descreption'=> $req->desc, 'price' => $req->price, 'image'=> $req->image ]);
+            $roomImg =  $req->file('image');
+            $input['image'] = $req->input('image').'.'.time().'.'.$roomImg->extension();
+            $destinationPath = 'images';
+     
+     
+             $img = Image::make($roomImg->path());
+             $img->resize(100, 100, function ($constraint) {
+                  $constraint->aspectRatio();
+             })->save($destinationPath.'/'.$input['image']);
+            $room = DB::table('rooms')->where('id',$req->id)->update(['room_name' => $req->name , 'nb_adulte'=> $req->adulte , 'nb_children'=> $req->children  , 'type' => $req->type,  'descreption'=> $req->desc, 'price' => $req->price, 'image'=> $img->basename ]);
         }else{
             $room = DB::table('rooms')->where('id',$req->id)->update(['room_name' => $req->name , 'nb_adulte'=> $req->adulte , 'nb_children'=> $req->children  , 'type' => $req->type,  'descreption'=> $req->desc, 'price' => $req->price ]);
 

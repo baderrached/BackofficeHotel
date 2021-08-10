@@ -66,8 +66,7 @@ class ExtraController extends Controller
     {
 
        
-        $extra = DB::table('orders')->where('id', '=', $id)->update(['status' => "Done"]);;
-
+        $extra = DB::table('orders')->where('id', '=', $id)->update(['status' => "Done"]);
 
         return back();
      

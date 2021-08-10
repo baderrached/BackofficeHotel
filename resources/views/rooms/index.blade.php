@@ -82,7 +82,7 @@
                  
 
                     <td>
-                     <img src="{{$rooms->image}}" height="45" width="45"  />
+                     <img src="/images/{{$rooms->image}}" height="45" width="45"  />
                     </td>
 
 

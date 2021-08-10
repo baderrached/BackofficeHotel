@@ -23,26 +23,21 @@ class SparestoController extends Controller
         return view('spa.index', ['spa' => $spa]);
     }
 
+    public function reservation()
+    {
+        $spa = DB::table('spa_restau_reservation')->where('hotel_id', auth()->user()->hotel_id)->get();
+        foreach($spa as $spas){
+            $user_name = DB::table('clients')->where('id',$spas->user_id)->value('first_name');
+            $spas->user_name = $user_name ;
+
+        }
   
-    public function update($id)
-    {
-        $admin = DB::table('users')->where('role','2')->where('id',$id)->get()->toArray();
-        $hotel = DB::table('hotels')->get();
-        return view('spa.edit' , ['admin' => $admin , 'hotel'=> $hotel]);
+        return view('spa.res', ['spa' => $spa]);
     }
 
-    public function edit($id , request $req)
-    {
-        $admin = DB::table('users')->where('role','2')->where('id',$id)
-        ->update(['name' => $req->name , 'email' => $req->email , 'hotel_id' => $req->hotel]);
-        
-        
-        $admins = DB::table('users')->where('role','2')->get();
-        
-
-        return redirect('sparesto');
-    }
-
+  
+ 
+  
 
     public function add()
     {

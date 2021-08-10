@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'adminindex', 'titlePage' => __('Spa and Resto List')])
+@extends('layouts.app', ['activePage' => 'spares', 'titlePage' => __('Spa and Resto REservation')])
 
 @section('content')
     <div class="content">
@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Spa liste</h4>
+                            <h4 class="card-title ">Spa and resto reservation</h4>
 
                         </div>
                         <div class="card-body">
@@ -22,13 +22,13 @@
                                         </th>
                                         
                                         <th>
-                                            Image
+                                            Day
                                         </th>
                                         <th>
-                                            Hotel
+                                            Time
                                         </th>
                                         <th>
-                                            Action
+                                            Room_id
                                         </th>
 
                                     </thead>
@@ -39,38 +39,21 @@
                                                     {{ $spas->id }}
                                                 </td>
                                                 <td>
-                                                    {{ $spas->name }}
+                                                    {{ $spas->user_name }}
+                                                </td>
+                                             
+                                                <td>
+                                                    {{ $spas->day }}
                                                 </td>
                                                 <td>
-                                                    <img alt="img" src="/images/{{ $spas->image }}" />
+                                                    {{ $spas->time }}
                                                 </td>
                                                 <td>
-                                                    {{ $spas->hotel_name }}
-                                                </td>
-                                                <td>
-                                                    @if ($spas->status == "inactive")
-                                                    <form method="get"
-                                                        action="{{ route('spa.restore', $spas->id) }}">
-                                                        @csrf
-                                                        <input hidden value={{ $spas->id }} name="id" />
-                                                        <button type="submit" rel="tooltip"
-                                                            class="btn btn-success btn-round">
-                                                            <i class="material-icons">restore</i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-
-                                                @if($spas->status == "active")
-                                                <form method="get" action="{{ route('spa.delete' , $spas->id) }}" >
-                                                  @csrf
-                                                  <input hidden value={{$spas->id}} name="id"/>
-                                                  <button type="submit" rel="tooltip" class="btn btn-danger btn-round">
-                                                    <i class="material-icons">delete</i>
-                                                  </button>
-                                                </form>
-                                                  @endif
+                                                    {{ $spas->room_id }}
                                                 </td>
 
+
+                                              
 
                                             </tr>
                                         @endforeach

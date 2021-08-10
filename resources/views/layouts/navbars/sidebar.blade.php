@@ -135,6 +135,14 @@
                 <span class="sidebar-normal"> {{ __('SpaResto add') }} </span>
               </a>
             </li>
+
+
+            <li class="nav-item{{ $activePage == 'spares' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('spa.res') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('SpaResto reservation') }} </span>
+              </a>
+            </li>
           </ul>
         </div>
       </li>

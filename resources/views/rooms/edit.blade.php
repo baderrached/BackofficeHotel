@@ -27,7 +27,7 @@
                 @endif
 
                 @foreach ($room as $rooms)
-                <form method="POST" action="/roomedit" autocomplete="off" class="form-horizontal">
+                <form method="POST" action="/roomedit" autocomplete="off" class="form-horizontal"  enctype="multipart/form-data">
                   @csrf
                   @method('put')
                   <input hidden value={{$rooms->id}} name="id"/>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="row">
                   <label class="col-sm-2 col-form-label">{{ __('Image') }}</label>
-                    <img src={{$rooms->image}} />
+                    <img src="/images/{{$rooms->image}}" />
                       <input type="file" class="form-control inputFileVisible" placeholder="image" name="image"  value="{{$rooms->image}}">
                      
                    
